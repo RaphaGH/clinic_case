@@ -18,7 +18,18 @@ public class Horario_atencionServiceImpl implements IHorario_atencionService{
       return repository.findAll();
    }
 
+   public boolean VerificarHorarioDisponible(Horario_atencion newHorario_atencion){
+      if(all().contains(newHorario_atencion.getHora_inicio())){
+         return false;
+      } else {
+         return true;
+      }
+   }
+
    public Horario_atencion newHorario_atencion(Horario_atencion newHorario_atencion) {
+      if(VerificarHorarioDisponible(newHorario_atencion)){
+         all().notify();
+      }
       return repository.save(newHorario_atencion);
    }
 
